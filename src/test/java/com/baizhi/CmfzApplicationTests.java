@@ -49,7 +49,7 @@ public class CmfzApplicationTests {
 
     @Test
     public void test1() {
-        System.out.println("测试一下啊,是个屁啊，万一报错了呢");
+        System.out.println("测试一下啊,是个屁啊，万一报错了呢,hhh");
         List<Admin> admins = adminDao.selectAll();
         admins.forEach(admin -> System.out.println(admin));
     }
