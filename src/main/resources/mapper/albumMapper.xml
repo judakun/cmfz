@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <update id="updateAlbum" parameterType="Album">
+        update album
+        <set>
+            <if test="title!=null">
+                title=#{title} ,
+            </if>
+            <if test="author!=null">
+                author=#{author} ,
+            </if>
+            <if test="beam!=null">
+                beam=#{beam} ,
+            </if>
+            <if test="score!=null">
+                score=#{score} ,
+            </if>
+            <if test="count!=null">
+                count=#{count} ,
+            </if>
+            <if test="intro!=null">
+                intro=#{intro}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+
+</mapper>
