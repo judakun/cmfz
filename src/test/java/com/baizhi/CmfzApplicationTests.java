@@ -68,13 +68,13 @@ public class CmfzApplicationTests {
     @Test
     public void test4() {
         int page = 1;
-        int rows = 3;
+        int rows = 5;
         List<Lbt> lbtByPage = lbtService.getLbtByPage(page, rows);
         lbtByPage.forEach(lbt -> System.out.println("查询结果：" + lbt));
-        Integer lbtCount = lbtService.getLbtCount();
+        /*Integer lbtCount = lbtService.getLbtCount();
         System.out.println("总条数：" + lbtCount);
         Integer lbtPages = lbtService.getLbtPages(rows);
-        System.out.println("总页数：" + lbtPages);
+        System.out.println("总页数：" + lbtPages);*/
     }
 
     @Test
@@ -89,7 +89,6 @@ public class CmfzApplicationTests {
         Lbt lbt = new Lbt();
         lbt.setId("3").setName("测试修改是否成功").setDescribes("再试一下修改");
         lbtService.updateLbt(lbt);
-
 
     }
 

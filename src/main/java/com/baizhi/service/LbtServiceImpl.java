@@ -1,5 +1,7 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AddCache;
+import com.baizhi.annotation.DeleteCache;
 import com.baizhi.dao.LbtDao;
 import com.baizhi.entity.Lbt;
 import org.apache.ibatis.session.RowBounds;
@@ -23,7 +25,6 @@ import java.util.List;
 public class LbtServiceImpl implements LbtService {
     @Autowired
     private LbtDao lbtDao;
-
     @Override
     public Integer getLbtCount() {
         List<Lbt> lbts = lbtDao.selectAll();
@@ -37,6 +38,7 @@ public class LbtServiceImpl implements LbtService {
         return pageTotal;
     }
 
+    @AddCache
     @Override
     public List<Lbt> getLbtByPage(Integer page, Integer rows) {
         RowBounds rowBounds = new RowBounds((page - 1) * rows, rows);
@@ -45,12 +47,14 @@ public class LbtServiceImpl implements LbtService {
         return lbts;
     }
 
+    @DeleteCache
     @Override
     public void updateLbt(Lbt lbt) {
         boolean b = lbtDao.updateLbt(lbt);
         System.out.println(" updateLbt  ==> " + b);
     }
 
+    @DeleteCache
     @Override
     public void deleteLbt(Lbt lbt, HttpSession session) {
         lbtDao.delete(lbt);

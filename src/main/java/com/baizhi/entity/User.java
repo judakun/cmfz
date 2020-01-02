@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "cuser")
-public class User {
+public class User implements Serializable {
     @Id
     @ExcelIgnore
     private String id;

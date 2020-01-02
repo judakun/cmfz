@@ -20,6 +20,9 @@ spring:
     multipart:
       max-file-size: 10240000MB
       max-request-size: 20480000MB
+  redis:
+    port: 6379
+    host: 192.168.100.139
 mybatis:
   type-aliases-package: com.baizhi.entity
   mapper-locations: classpath:mapper/*Mapper.xml

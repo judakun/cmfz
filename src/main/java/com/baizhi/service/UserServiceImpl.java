@@ -1,5 +1,6 @@
 package com.baizhi.service;
 
+import com.baizhi.annotation.AddCache;
 import com.baizhi.dao.AdminDao;
 import com.baizhi.dao.UserDao;
 import com.baizhi.entity.Admin;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @AddCache
     @Override
     public List<User> getAllUser(Integer page, Integer rows) {
         RowBounds rowBounds = new RowBounds((page - 1) * rows, rows);
@@ -61,12 +63,14 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @AddCache
     @Override
     public Integer getCount() {
         int i = userDao.selectCount(new User());
         return i;
     }
 
+    @AddCache
     @Override
     public Integer getPageCount(Integer rows) {
         int i = userDao.selectCount(new User());
@@ -85,10 +89,10 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
+    @AddCache
     @Override
     public List<User> getAllUser() {
         List<User> users = userDao.selectAll();
-
         return users;
     }
 
