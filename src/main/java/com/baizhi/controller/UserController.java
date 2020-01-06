@@ -9,6 +9,11 @@ import com.baizhi.util.SecurityCode;
 import com.baizhi.util.SecurityImage;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,7 +62,7 @@ public class UserController {
     @RequestMapping("adminLogin")
     @ResponseBody
     public String adminLogin(Admin admin, @Param("enCode") String enCode, HttpSession session) {
-        String code = (String) session.getAttribute("code");
+        /*String code = (String) session.getAttribute("code");
         if (code.equals(enCode)) {
             Admin admin1 = userService.adminLogin(admin);
             if (admin1 == null) {
@@ -72,9 +77,32 @@ public class UserController {
             }
         } else {
             return "codeError";
+        }*/
+        String code = (String) session.getAttribute("code");
+        if (code.equals(enCode)) {
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(admin.getUsername(), admin.getPassword());
+            try {
+                subject.login(token);
+                return "success";
+            } catch (UnknownAccountException e) {
+                return "nameError";
+            } catch (IncorrectCredentialsException e) {
+                return "pwdError";
+            }
+        } else {
+            return "codeError";
         }
 
     }
+
+    @RequestMapping("adminExit")
+    public String exit() {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        return "/login.jsp";
+    }
+
 
     @RequestMapping("getAllUser")
     @ResponseBody

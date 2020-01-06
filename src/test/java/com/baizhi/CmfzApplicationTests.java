@@ -56,7 +56,7 @@ public class CmfzApplicationTests {
 
     @Test
     public void test2() {
-        adminDao.insert(new Admin("3", "admin3", "admin3", "管理员吧"));
+        //adminDao.insert(new Admin("3", "admin3", "admin3", "管理员吧"));
     }
 
     @Test
@@ -225,5 +225,15 @@ public class CmfzApplicationTests {
         criteria.andIsNotNull("guru_id");
         List<Articles> articles = articlesDao.selectByExample(example);
         articles.forEach(articles1 -> System.out.println(articles1));
+
     }
+
+    @Test
+    public void test111() {
+        Admin admin1 = new Admin();
+        admin1.setUsername("zhangsan");
+        Admin admin2 = adminDao.selectOne(admin1);
+        System.out.println(admin2);
+    }
+
 }

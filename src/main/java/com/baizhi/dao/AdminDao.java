@@ -12,5 +12,6 @@ import tk.mybatis.mapper.common.Mapper;
  */
 @Repository
 public interface AdminDao extends Mapper<Admin> {
+    Admin queryOne(String username);
 
 }

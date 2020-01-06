@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 /**
  * @ClassName Admin
@@ -26,8 +28,8 @@ public class Admin {
     private String username;
     private String password;
     private String nickname;
-    /*@Transient
-    private List<Admin> list;*/
+    @Transient
+    private List<Role> roles;
 
 
 }

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     request.setCharacterEncoding("UTF-8");
     String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
@@ -95,15 +96,15 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <c:if test="${sessionScope.user!=null}">
-                    <li>欢迎${sessionScope.user.username}</li>
-                    <li><a href="${pageContext.request.contextPath}/login.jsp">退出</a></li>
-                </c:if>
-                <c:if test="${sessionScope.user==null}">
+                <shiro:authenticated>
+                    <li>欢迎<shiro:principal></shiro:principal></li>
+                    <li><a href="${pageContext.request.contextPath}/user/adminExit">退出</a></li>
+                </shiro:authenticated>
+                <shiro:notAuthenticated>
                     <li><a href="${pageContext.request.contextPath}/register.jsp" data-toggle="modal"
                            data-target="#myModal">注册</a></li>
                     <li><a href="${pageContext.request.contextPath}/login.jsp">登陆</a></li>
-                </c:if>
+                </shiro:notAuthenticated>
             </ul>
         </div>
     </div>
@@ -185,12 +186,14 @@
                     <div class="panel-body">
                         <li><a href="javascript:$('#con').load('${pageContext.request.contextPath}/back/showuser.jsp')">查看所有用户</a>
                         </li>
-                        <li>
-                            <a href="javascript:$('#con').load('${pageContext.request.contextPath}/back/registerShow.jsp')">查看所有用户</a>
-                        </li>
-                        <li>
-                            <a href="javascript:$('#con').load('${pageContext.request.contextPath}/back/registerShow2.jsp')">查看所有用户</a>
-                        </li>
+                        <shiro:hasPermission name="user:*">
+                            <li>
+                                <a href="javascript:$('#con').load('${pageContext.request.contextPath}/back/registerShow.jsp')">查看所有用户</a>
+                            </li>
+                            <li>
+                                <a href="javascript:$('#con').load('${pageContext.request.contextPath}/back/registerShow2.jsp')">查看所有用户</a>
+                            </li>
+                        </shiro:hasPermission>
                     </div>
                 </div>
             </div>

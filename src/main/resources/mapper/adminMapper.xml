@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.AdminDao">
+    <!--查询类别结果映射  -->
+    <resultMap id="adminMap" type="Admin">
+        <id property="id" column="aid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <collection property="roles" ofType="Role">
+            <id property="id" column="rid"/>
+            <result property="name" column="rname"/>
+            <collection property="powers" ofType="Power">
+                <id property="id" column="pid"/>
+                <result property="name" column="pname"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="queryOne" resultMap="adminMap">
+        select a.id aid,a.username,a.password,a.nickname,r.id rid,r.name rname,p.id pid,p.name pname
+from cadmin a
+LEFT JOIN admin_role ar on a.id=ar.admin_id
+LEFT JOIN crole r on ar.role_id = r.id
+LEFT JOIN role_power rp on rp.role_id=r.id
+LEFT JOIN cpower p on rp.power_id=p.id
+WHERE a.username=#{username}
+    </select>
+</mapper>
